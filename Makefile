@@ -7,8 +7,8 @@ snake_game: obj/main.o obj/Point.o obj/Object.o obj/Snake.o obj/Board.o obj/Play
 obj/main.o: src/main.cpp inc/Board.hh inc/Snake.hh
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp 
 
-obj/Point.o: src/Punkt.cpp 
-	g++ ${CPPFLAGS} -o obj/Point.o src/Punkt.cpp
+obj/Point.o: src/Point.cpp 
+	g++ ${CPPFLAGS} -o obj/Point.o src/Point.cpp
 
 obj/Object.o: src/Object.cpp inc/Point.hh
 	g++ ${CPPFLAGS} -o obj/Object.o src/Object.cpp
