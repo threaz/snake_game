@@ -16,11 +16,10 @@ Board::Board(WINDOW * win) // make borders and credits
 
 void Board::generateRandObject(WINDOW * win, const int max_y, const int max_x)
 {
-  srand(time(NULL));
   int r_y, r_x;
     
-  r_y = (rand() % (max_y - 4)) + 1;
-  r_x = (rand() % (max_x - 1)) + 1;
+  r_y = (rand() % (max_y-4)) + 1;
+  r_x = (rand() % (max_x-1)) + 1;
     
   _Obj.push_back(Object(r_y, r_x, 'O'));
   _Obj.back().showPoint(win);

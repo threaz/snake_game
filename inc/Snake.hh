@@ -25,7 +25,7 @@ private:
 
   
 public:
-  Snake(WINDOW * win, const int y, const int x);
+  Snake(WINDOW * win);
   void showSnake();
   
   bool removeLast();
@@ -35,6 +35,8 @@ public:
   void moveDown();
   void moveLeft();
   void moveRight();
+
+  void moveSnake(int ch);
   void autoMove();
   
   int getHeadY(){ return _Head->getY(); }

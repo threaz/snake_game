@@ -3,10 +3,13 @@
 #include "Player.hh"
 
 #include <ctime>
+#include <cstdio>
+#include <fstream>
 #include <ncurses.h>
 #include <unistd.h>
+#include <iomanip>
 
-#define DELAY_STEP 0.1
+#define SCND 1000000
 
 int main()
 {
@@ -15,81 +18,67 @@ int main()
   cbreak(); // dont have to use ENTER 
   curs_set(FALSE); // no cursor
   keypad(stdscr, TRUE);
+  srand(time(NULL));
   
   /* MAIN PROGRAM */
   Board Plansza(stdscr);
-  Snake W1(stdscr, LINES, COLS);
+  Snake W1(stdscr);
   Player P1("Damian");
   
   W1.showSnake();
-
-  int ch = ' '; // not F1
-  int prev_ch = 'x'; // not ch
-  int objCount = 0;
-  double DELAY = 3;
-
-  time_t timer;
-  while(true && ch != KEY_F(1))
+  // score 
+  Plansza.showScore(stdscr, LINES-2, P1.getScore());
+  
+  int ch = 'y', prev_ch = 'x';
+  long delay = 0.6 * SCND;
+  
+  nodelay(stdscr, TRUE);
+  
+  while(ch = getch())
     {
-      halfdelay(DELAY);
-      ch = getch();
       if(ch == ERR) // no character was entered
-	W1.autoMove();
-      else if(prev_ch == ch) // player entered same direction as snake had moved
+	  W1.autoMove();
+      else if(ch == prev_ch) continue;
+      else if(ch == 's') // slow down
 	{
-	  // do nothing
+	delay = delay * 1.1;
+	continue;
+      }
+      else if(ch == 'w') // speed up
+	{
+	  delay = delay * 0.9;
+	  continue;
 	}
-      else // there was a character
+      else 
 	{ 
-	  switch(ch)
-	    {
-	    case KEY_UP:
-	      W1.moveUp();
-	      break;
-	    case KEY_DOWN:
-	      W1.moveDown();
-	      break;
-	    case KEY_LEFT:
-	      W1.moveLeft();
-	      break;
-	    case KEY_RIGHT:
-	      W1.moveRight();
-	      break;
-	    default:
-	      // do nothing
-	      break;
-	    }
-	  
+	  W1.moveSnake(ch);
 	  prev_ch = ch;
-	}
-      
-      // score 
-      Plansza.showScore(stdscr, LINES-2, P1.getScore());
+	}      
 
-      // get current time
-      time(&timer);
-      timer %= 10;
-      
-      if(timer == 0 || timer == 4 || timer == 8)
+      if(rand() % 4 == 0) // popraw to XDDDD
 	Plansza.generateRandObject(stdscr, LINES, COLS);
-
-      // check if snake eat something
+      
+      // check if snake has eaten something
       if(Plansza.isThereObject(stdscr, W1.getHeadY(), W1.getHeadX()))
 	{
-	  W1.addLast(); // expand snake
-	  DELAY -= DELAY_STEP; // make game faster
+	  W1.addLast(); // add snake's segment
 	  P1.incrScore();
+	  Plansza.showScore(stdscr, LINES-2, P1.getScore());
+	  delay = delay * 0.95;
 	}
-
-      if(W1.collide()) ch = KEY_F(1);
+      
+      if(W1.collide()) break;
+      usleep(delay);
     }
   
   Plansza.showGameOver(stdscr, LINES, COLS);
-  
-  /* END OF THE PROGRAM */  
-  
+   /* END OF THE PROGRAM */  
+
+  nodelay(stdscr, FALSE);
   nocbreak();
   getch();
+  
   endwin();
   return 0;
 }
+

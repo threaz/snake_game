@@ -1,7 +1,10 @@
 #include "Snake.hh"
 
-Snake::Snake(WINDOW * win, const int y, const int x)
+Snake::Snake(WINDOW * win)
 {
+  int y, x;
+  
+  getmaxyx(win, y, x);
   int Y_Pos = y/2, X_Pos = x/2;
     
   for(int i = 0; i < 5; ++i)
@@ -14,6 +17,29 @@ Snake::Snake(WINDOW * win, const int y, const int x)
   // start direction 
   _Dir = L;
 }
+
+void Snake::moveSnake(int ch)
+{
+  switch(ch)
+    {
+    case KEY_UP:
+      moveUp();
+      break;
+    case KEY_DOWN:
+      moveDown();
+      break;
+    case KEY_LEFT:
+      moveLeft();
+      break;
+    case KEY_RIGHT:
+      moveRight();
+      break;
+    default:
+      // do nothing
+      break;
+    }
+}
+  
 
 void Snake::showSnake()
 {
