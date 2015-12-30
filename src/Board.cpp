@@ -47,6 +47,11 @@ void Board::showScore(WINDOW * win, const int y, const int score)
   mvwprintw(win, y, 2, "Score: %d", score);
 }
 
+void Board::showSpeed(WINDOW * win, const int y, const int speed)
+{
+  mvwprintw(win, y, 20, "Speed: %d", speed);
+}
+
 void Board::showGameOver(WINDOW * win, const int y, const int x)
 {
   std::string napis = "Game Over. Press any key to exit...";

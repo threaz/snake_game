@@ -28,7 +28,8 @@ public:
   bool isThereObject(WINDOW * win, const int y, const int x);
   
   void showAuthor(WINDOW * win, const int y);
-  void showScore(WINDOW * win, const int y, const int score);  
+  void showScore(WINDOW * win, const int y, const int score);
+  void showSpeed(WINDOW * win, const int y, const int speed);  
   void showGameOver(WINDOW * win, const int y, const int x);
 };
 
