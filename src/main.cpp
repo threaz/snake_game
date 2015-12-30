@@ -2,7 +2,6 @@
 #include "Board.hh"
 #include "Player.hh"
 
-//#include <boost/timer.hpp>
 #include <ctime>
 #include <cstdio>
 #include <fstream>
@@ -37,7 +36,7 @@ int main()
   W1.showSnake();
   // and score 
   Plansza.showScore(stdscr, LINES-2, P1.getScore()); // fix this last argument!
-  Plansza.showSpeed(stdscr, LINES-2, delay/1000);    // fix it to show some accurate speed
+  Plansza.showSpeed(stdscr, LINES-2, 2000000.0/delay);    // fix it to show some accurate speed
   time(&last_time);
   // set timer
   
@@ -81,7 +80,7 @@ int main()
 	break;
       
       Plansza.showScore(stdscr, LINES-2, P1.getScore());
-      Plansza.showSpeed(stdscr, LINES-2, delay/1000);
+      Plansza.showSpeed(stdscr, LINES-2, 20000000.0/delay);
       usleep(delay);
     }
   

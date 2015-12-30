@@ -29,7 +29,7 @@ public:
   
   void showAuthor(WINDOW * win, const int y);
   void showScore(WINDOW * win, const int y, const int score);
-  void showSpeed(WINDOW * win, const int y, const int speed);  
+  void showSpeed(WINDOW * win, const int y, const double speed);  
   void showGameOver(WINDOW * win, const int y, const int x);
 };
 

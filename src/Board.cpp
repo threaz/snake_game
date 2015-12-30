@@ -1,3 +1,4 @@
+
 #include "Board.hh"
 #include "Object.hh"
 
@@ -36,7 +37,7 @@ bool Board::isThereObject(WINDOW * win, const int y, const int x)
 
 void Board::showAuthor(WINDOW * win, const int y) 
 {
-  std::string author = "Autor: Damian Pukaluk ";
+  std::string author = "Author: Damian Pukaluk ";
   int a_len = author.size();
     
   mvwprintw(win, y, B_WID - a_len -1, author.c_str());
@@ -47,9 +48,9 @@ void Board::showScore(WINDOW * win, const int y, const int score)
   mvwprintw(win, y, 2, "Score: %d", score);
 }
 
-void Board::showSpeed(WINDOW * win, const int y, const int speed)
+void Board::showSpeed(WINDOW * win, const int y, const double speed)
 {
-  mvwprintw(win, y, 20, "Speed: %d", speed);
+  mvwprintw(win, y, 15, "Speed: %.2lf%%", speed);
 }
 
 void Board::showGameOver(WINDOW * win, const int y, const int x)
